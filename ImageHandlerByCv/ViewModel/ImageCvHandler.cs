@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
@@ -16,11 +18,11 @@ namespace ImageHandlerByCv.ViewModel
 
         }
 
-        private BitmapImage? GetBitmapImage(Mat mat)
+        private BitmapSource? GetBitmapImage(Mat mat)
         {
             try
             {
-                using var mem = mat.ToMemoryStream();
+                var mem = mat.ToMemoryStream();
                 BitmapImage bmp = new BitmapImage();
                 bmp.BeginInit();
                 bmp.StreamSource = mem;
@@ -38,10 +40,36 @@ namespace ImageHandlerByCv.ViewModel
         }
 
         /// <summary>
+        /// 图片还原成正常状态
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public BitmapSource? GetImageSource(string path)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path))
+                    return null;
+
+                using var mat = new Mat(path, ImreadModes.Unchanged);
+                //return GetBitmapImage(mat);
+                var bmp = mat.ToBitmap();
+                return Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 红蓝颜色通道互换
         /// </summary>
         /// <param name="path"></param>
-        public BitmapImage? SwapBlueRedColor(string path)
+        public BitmapSource? SwapBlueRedColor(string path)
         {
             try
             {
@@ -73,7 +101,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? AshSettingImage(string path)
+        public BitmapSource? AshSettingImage(string path)
         {
             try
             {
@@ -96,7 +124,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? TwoShrinkImage(string path)
+        public BitmapSource? TwoShrinkImage(string path)
         {
             try
             {
@@ -119,7 +147,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? CorrosionImage(string path)
+        public BitmapSource? CorrosionImage(string path)
         {
             try
             {
@@ -144,7 +172,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? ExpansionImage(string path)
+        public BitmapSource? ExpansionImage(string path)
         {
             try
             {
@@ -169,7 +197,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? ReversalImage(string path)
+        public BitmapSource? ReversalImage(string path)
         {
             try
             {
@@ -194,7 +222,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? TransformVertexImage(string path)
+        public BitmapSource? TransformVertexImage(string path)
         {
             try
             {
@@ -226,7 +254,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? BlurImage(string path)
+        public BitmapSource? BlurImage(string path)
         {
             try
             {
@@ -251,7 +279,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? MarginalizationImage(string path)
+        public BitmapSource? MarginalizationImage(string path)
         {
             try
             {
@@ -276,7 +304,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? BrightnessImage(string path)
+        public BitmapSource? BrightnessImage(string path)
         {
             try
             {
@@ -336,7 +364,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? GaussianBlurImage(string path)
+        public BitmapSource? GaussianBlurImage(string path)
         {
             try
             {
@@ -361,7 +389,7 @@ namespace ImageHandlerByCv.ViewModel
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public BitmapImage? BeautyImage(string path)
+        public BitmapSource? BeautyImage(string path)
         {
             try
             {

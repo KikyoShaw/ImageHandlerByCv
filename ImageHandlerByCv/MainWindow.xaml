@@ -7,6 +7,35 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Height="40" Margin="20" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="打开图片" Click="BtnChange13_Click" Margin="0 0 6 0"/>
+            <Button Content="正常" Click="BtnChange0_Click" Margin="0 0 6 0"/>
+            <Button Content="蓝红颜色互换" Click="BtnChange1_Click" Margin="0 0 6 0"/>
+            <Button Content="图片灰显" Click="BtnChange2_Click" Margin="0 0 6 0"/>
+            <Button Content="2倍缩小读取图像" Click="BtnChange3_Click" Margin="0 0 6 0"/>
+            <Button Content="腐蚀" Click="BtnChange4_Click" Margin="0 0 6 0"/>
+            <Button Content="膨胀" Click="BtnChange5_Click" Margin="0 0 6 0"/>
+            <Button Content="反转" Click="BtnChange6_Click" Margin="0 0 6 0"/>
+            <Button Content="变换顶点" Click="BtnChange7_Click" Margin="0 0 6 0"/>
+            <Button Content="模糊" Click="BtnChange8_Click" Margin="0 0 6 0"/>
+            <Button Content="边缘化" Click="BtnChange9_Click" Margin="0 0 6 0"/>
+            <Button Content="亮度" Click="BtnChange10_Click" Margin="0 0 6 0"/>
+            <Button Content="高斯模糊" Click="BtnChange11_Click" Margin="0 0 6 0"/>
+            <Button Content="美颜磨皮" Click="BtnChange12_Click" Margin="0 0 6 0"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="TargetImage"/>
+            <Image Grid.Column="2" x:Name="OutPutImage"/>
+        </Grid>
     </Grid>
+
 </Window>
